@@ -21,7 +21,7 @@ class ItemRepositoryTest {
 
     @AfterEach
     void afterEach() {
-        //MemoryItemRepository 의 경우 제한적으로 사용
+        //MemoryItemRepository 의 경우에만 제한적으로 사용
         if (itemRepository instanceof MemoryItemRepository) {
             ((MemoryItemRepository) itemRepository).clearStore();
         }
