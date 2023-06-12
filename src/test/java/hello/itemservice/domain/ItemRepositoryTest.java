@@ -48,7 +48,7 @@ class ItemRepositoryTest {
     }
 
     @Test
-    @Transactional
+    //@Transactional
     //@Commit
     void save() {
         //given
