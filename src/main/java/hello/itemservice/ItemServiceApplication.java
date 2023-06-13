@@ -12,7 +12,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
-@Import(JdbcTemplateV3Config.class)
+@Import(MyBatisConfig.class)
+//@Import(JdbcTemplateV3Config.class)
 //@Import(JdbcTemplateV2Config.class)
 //@Import(JdbcTemplateV1Config.class)
 //@Import(MemoryConfig.class) // 앞서 설정한 MemoryConfig 를 설정 파일로 사용
@@ -30,6 +31,7 @@ public class ItemServiceApplication {
 		return new TestDataInit(itemRepository);
 	}
 
+	/*
 	@Bean
 	@Profile("test")
 	public DataSource dataSource() {
@@ -41,4 +43,5 @@ public class ItemServiceApplication {
 		dataSource.setPassword("");
 		return dataSource;
 	}
+	*/
 }
