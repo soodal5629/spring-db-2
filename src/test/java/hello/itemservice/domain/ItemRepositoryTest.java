@@ -3,28 +3,28 @@ package hello.itemservice.domain;
 import hello.itemservice.repository.ItemRepository;
 import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
+import hello.itemservice.repository.jpa.JpaItemRepository;
 import hello.itemservice.repository.memory.MemoryItemRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
+@Slf4j
 class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
+
 
     /*
     @Autowired
@@ -63,6 +63,7 @@ class ItemRepositoryTest {
     }
 
     @Test
+    //@Commit
     void updateItem() {
         //given
         Item item = new Item("item1", 10000, 10);
@@ -110,5 +111,19 @@ class ItemRepositoryTest {
     void test(String itemName, Integer maxPrice, Item... items) {
         List<Item> result = itemRepository.findAll(new ItemSearchCond(itemName, maxPrice));
         assertThat(result).containsExactly(items);
+    }
+
+    @Test
+    void delete() {
+        Item itemA = new Item("itemA", 10000, 10);
+        Item itemB = new Item("itemB", 20000, 10);
+        itemRepository.save(itemA);
+        itemRepository.save(itemB);
+        log.info("itemA={}", itemA.getId());
+        log.info("itemB={}", itemB.getId());
+        itemRepository.delete(itemA.getId());
+        List<Item> all = itemRepository.findAll(new ItemSearchCond());
+        assertThat(all.size()).isEqualTo(1);
+        assertThat(all).containsExactly(itemB);
     }
 }

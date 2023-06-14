@@ -20,4 +20,5 @@ public interface ItemMapper {
 
     Optional<Item> findById(Long id);
 
+    void delete(Long itemId);
 }

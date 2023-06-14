@@ -97,6 +97,11 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
         return template.query(sql, itemRowMapper(), param.toArray());
     }
 
+    @Override
+    public void delete(Long itemId) {
+
+    }
+
     // DB의 반환 결과인 ResultSet을 객체로 변환할 때 사용 (여러개도 가능)
     private RowMapper<Item> itemRowMapper() {
         return ((rs, rowNum) -> {

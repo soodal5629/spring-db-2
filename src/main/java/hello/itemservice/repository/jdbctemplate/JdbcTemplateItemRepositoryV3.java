@@ -101,6 +101,11 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
         return template.query(sql, param, itemRowMapper());
     }
 
+    @Override
+    public void delete(Long itemId) {
+
+    }
+
     // DB의 반환 결과인 ResultSet을 객체로 변환할 때 사용 (여러개도 가능)
     private RowMapper<Item> itemRowMapper() {
         return BeanPropertyRowMapper.newInstance(Item.class); // camel 변환 지원

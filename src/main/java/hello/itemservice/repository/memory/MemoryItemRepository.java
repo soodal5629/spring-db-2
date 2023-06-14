@@ -55,6 +55,11 @@ public class MemoryItemRepository implements ItemRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void delete(Long itemId) {
+
+    }
+
     public void clearStore() {
         store.clear();
     }

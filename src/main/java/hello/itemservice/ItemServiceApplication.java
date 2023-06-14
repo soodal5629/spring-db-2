@@ -2,6 +2,7 @@ package hello.itemservice;
 
 import hello.itemservice.config.*;
 import hello.itemservice.repository.ItemRepository;
+import hello.itemservice.repository.jpa.JpaItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,9 +11,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
-@Import(MyBatisConfig.class)
+@Import(JpaConfig.class)
+//@Import(MyBatisConfig.class)
 //@Import(JdbcTemplateV3Config.class)
 //@Import(JdbcTemplateV2Config.class)
 //@Import(JdbcTemplateV1Config.class)
@@ -44,4 +47,5 @@ public class ItemServiceApplication {
 		return dataSource;
 	}
 	*/
+
 }

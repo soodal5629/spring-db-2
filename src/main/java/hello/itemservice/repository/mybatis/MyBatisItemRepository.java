@@ -5,6 +5,7 @@ import hello.itemservice.repository.ItemRepository;
 import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,12 +13,14 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class MyBatisRepository implements ItemRepository {
+@Slf4j
+public class MyBatisItemRepository implements ItemRepository {
     // 구현체(프록시) 의존관계 주입받음
     private final ItemMapper itemMapper;
 
     @Override
     public Item save(Item item) {
+        log.info("itemMapper class={}", itemMapper.getClass());
         itemMapper.save(item);
         return item;
     }
@@ -35,6 +38,11 @@ public class MyBatisRepository implements ItemRepository {
     @Override
     public List<Item> findAll(ItemSearchCond cond) {
         return itemMapper.findAll(cond);
+    }
+
+    @Override
+    public void delete(Long itemId) {
+        itemMapper.delete(itemId);
     }
 
 }
