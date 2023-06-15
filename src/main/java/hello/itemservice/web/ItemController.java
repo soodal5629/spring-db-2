@@ -5,16 +5,20 @@ import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
 import hello.itemservice.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/items")
 @RequiredArgsConstructor
+@Slf4j
 public class ItemController {
 
     private final ItemService itemService;
@@ -23,6 +27,7 @@ public class ItemController {
     public String items(@ModelAttribute("itemSearch") ItemSearchCond itemSearch, Model model) {
         List<Item> items = itemService.findItems(itemSearch);
         model.addAttribute("items", items);
+        log.info("redirect");
         return "items";
     }
 
@@ -59,4 +64,14 @@ public class ItemController {
         return "redirect:/items/{itemId}";
     }
 
+    @PostMapping("/delete")
+    @ResponseBody
+    public String delete(@RequestBody Map<String, Object> data){
+        List<String> temp = (List<String>) data.get("data");
+        List<Long> removeList = new ArrayList<>();
+        removeList.forEach(e -> log.info("삭제 리스트 => {}", e));
+        temp.forEach(e -> removeList.add(Long.parseLong(e)));
+        itemService.delete(removeList);
+        return "success";
+    }
 }
