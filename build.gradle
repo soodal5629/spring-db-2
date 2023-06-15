@@ -8,6 +8,9 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+// hibernate ver 변경 ( => like % % 자체 에러 나서)
+ext["hibernate.version"] = "5.6.5.Final"
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
