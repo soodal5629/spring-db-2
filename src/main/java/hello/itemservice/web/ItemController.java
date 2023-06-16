@@ -27,7 +27,6 @@ public class ItemController {
     public String items(@ModelAttribute("itemSearch") ItemSearchCond itemSearch, Model model) {
         List<Item> items = itemService.findItems(itemSearch);
         model.addAttribute("items", items);
-        log.info("redirect");
         return "items";
     }
 
@@ -72,6 +71,7 @@ public class ItemController {
         removeList.forEach(e -> log.info("삭제 리스트 => {}", e));
         temp.forEach(e -> removeList.add(Long.parseLong(e)));
         itemService.delete(removeList);
+
         return "success";
     }
 }

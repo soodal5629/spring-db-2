@@ -6,6 +6,7 @@ import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,7 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
+    @Transactional
     public void delete(List<Long> removeList) {
         removeList.forEach(e -> itemRepository.delete(e));
     }
